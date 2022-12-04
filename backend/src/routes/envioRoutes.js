@@ -11,11 +11,11 @@ router.get("/", async (req, res) => {
 router.post("/", async (req, res) => {
   const {
     fecha_crea,hora_crea,nom_destinatario,ced_destinatario,dir_entrega,
-    ciudad_entrega,estado,largo,ancho,alto,peso,dir_recogida,ciudad_recogida,email_usu
+    ciudad_entrega,estado,largo,ancho,alto,peso,dir_recogida,ciudad_recogida,id_cliente
   } = req.body;
   const envio = new Envio({
     fecha_crea,hora_crea,nom_destinatario,ced_destinatario,dir_entrega,
-    ciudad_entrega,estado,largo,ancho,alto,peso,dir_recogida,ciudad_recogida,email_usu
+    ciudad_entrega,estado,largo,ancho,alto,peso,dir_recogida,ciudad_recogida,id_cliente
   });
   await envio.save();
   console.log(envio);
@@ -25,11 +25,11 @@ router.post("/", async (req, res) => {
 router.put("/:id", async (req, res) => {
     const {
       fecha_crea,hora_crea,nom_destinatario,ced_destinatario,dir_entrega,
-      ciudad_entrega,estado,largo,ancho,alto,peso,dir_recogida,ciudad_recogida,email_usu
+      ciudad_entrega,estado,largo,ancho,alto,peso,dir_recogida,ciudad_recogida,id_cliente
     } = req.body;
     const newEnvio = {
       fecha_crea,hora_crea,nom_destinatario,ced_destinatario,dir_entrega,
-      ciudad_entrega,estado,largo,ancho,alto,peso,dir_recogida,ciudad_recogida,email_usu
+      ciudad_entrega,estado,largo,ancho,alto,peso,dir_recogida,ciudad_recogida,id_cliente
     }
     await Envio.findByIdAndUpdate(req.params.id, newEnvio)
     res.json({status:'Envio actualizado'});

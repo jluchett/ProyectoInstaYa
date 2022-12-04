@@ -2,7 +2,7 @@
     text-align: left;
 }
 
-  .crear {
+.crear {
     width: 70%;
     border-width: 3px;
     border-style: solid;
@@ -15,8 +15,8 @@
     padding-bottom:1% ; 
     margin-top: 2%;
 
-  }
-  .tabla {
+}
+.tabla {
     
     width: 90%;
     border-width: 3px;
@@ -30,9 +30,9 @@
     padding-bottom:1% ; 
     margin-top: 2%;
 
-  }
-    .mb-3{
-    text-align: left;
+}
+.mb-3{
+  text-align: left;
 }
 #titles{
   text-align: center;
@@ -53,4 +53,23 @@
 .btcancel{
   border: none;
   background: none;
+}
+.principal {
+  background-image: url("https://www.acoext.com/imagenes/biblioteca/imagen-art-0409.jpg");
+  background-repeat:no-repeat;
+  background-size: 50%;
+  background-position: left;
+  height: 90vh;
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin-left: 5vh;
+  background-color: rgba(252, 250, 250, 0.75);
+}
+.contenedor{
+  text-align: center;
+}
+.btons a {
+ align-items:flex-end;
 }

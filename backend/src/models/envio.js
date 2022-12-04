@@ -15,7 +15,7 @@ const EnvioSchema = new Schema({
     peso:{type:Number,required:true},
     dir_recogida:{type:String,required:true},
     ciudad_recogida:{type:String,required:true},
-    email_usu:{type:String,required:true}
+    id_cliente:{type:String,required:true}
 })
 
 module.exports = mongoose.model("Envio", EnvioSchema);

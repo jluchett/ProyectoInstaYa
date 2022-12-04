@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Container, Button, Form } from "react-bootstrap";
-import { NavLink, Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import "./app.css";
 import Listado from "./Listado";
 import BarraNavegacion from "./Navbar";
@@ -10,7 +10,9 @@ const iniUser = {
   username: "",
   password: "",
 };
-export default function Login({datos,data}) {
+let newData = []
+let iduser =""
+export default function Login({datos,data, obtUser}) {
   const [user, setUser] = useState(iniUser);
 
   const [valid, setValid] = useState(false);
@@ -20,17 +22,18 @@ export default function Login({datos,data}) {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(datos[0].nombreusuario)
-    console.log(datos[0].contrasena)
-    if((datos[0].nombreusuario == user.username) && (datos[0].contrasena == user.password)){
+    const actUser = datos.find(el => el.nombreusuario == user.username && el.contrasena == user.password )
+    console.log(actUser)
+    if(actUser){
       console.log("Correcto puedes ingresar")
       setValid(true)
-      {document.getElementById("mensaje").innerText = "Correcto puedes ingresar"}
-      {document.getElementById("btnIngre").innerText = "Ingresar"}
+      obtUser(actUser._id)
+      iduser = actUser._id
+      newData = data.filter( el => el.id_cliente == actUser._id)
+      {document.getElementById("estadoCancelado").innerText = "Correcto puedes ingresar"}
     }else{
       console.log("No puedes ingresar")
-      {document.getElementById("mensaje").innerText = "Datos incorrectos"}
-      {document.getElementById("btnIngre").innerText = ""}
+      {document.getElementById("estadoCancelado").innerText = "Datos incorrectos"}
     }
   };
 
@@ -38,11 +41,11 @@ export default function Login({datos,data}) {
     <> 
       {valid ? (
         
-        <Listado data={data}/>
+        <Listado datIdCli={iduser}/>
         
       ):(
       <div>
-        <BarraNavegacion menu1="Registro" />
+        <BarraNavegacion menu1="Registrarse" />
       <Container className="crear">
         <h1 id="titles">Login</h1>
         <Form onSubmit={handleSubmit}>
@@ -65,8 +68,7 @@ export default function Login({datos,data}) {
               value={user.password}
               onChange={handleChange}
             />
-            <label id="mensaje" ></label>
-            <Link id="btnIngre" className='button' to="/listado" ></Link>
+            <label id="estadoCancelado" ></label>
           </Form.Group>
           <Button variant="primary" type="submit">
             Enviar

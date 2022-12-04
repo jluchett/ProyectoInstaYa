@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Container, Button, Col, Form, Row } from "react-bootstrap";
+import { NavLink } from "react-router-dom";
 import "./app.css";
 import BarraNavegacion from "./Navbar";
 
@@ -17,21 +18,23 @@ const iniForm = {
   peso: "",
   dir_recogida: "",
   ciudad_recogida: "",
+  id_cliente: ""
 };
 
-export default function Crear(email) {
+export default function Crear({idCliente, obtEnv, obtUser}) {
   const [form, setForm] = useState(iniForm);
 
   const handleChange = (e) => {
     setForm({
       ...form,
       [e.target.name]: e.target.value,
+      id_cliente: idCliente,
     });
+    
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(form);
     fetch("/api/envios", {
       method: "POST",
       body: JSON.stringify(form),
@@ -40,19 +43,20 @@ export default function Crear(email) {
         "Content-Type": "application/json",
       },
     })
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
-        setForm({
-          ...form,
-          [email_usu]: email,
-        });
-      })
-      .catch((error) => console.log(error));
+    .then((res) => res.json())
+    .then((data) => {
+      console.log(data)
+      setForm(iniForm);
+      console.log("de guardo desde el compnente crear")
+    })
+    .catch((error) => console.error(error))
+    obtEnv()
+    obtUser(idCliente)
+    console.log("final de handleSubmit")
   };
   return (
     <>
-      <BarraNavegacion menu1="Cerrar sesion" />
+      <BarraNavegacion menu1="Listado" />
       <Container className="crear">
         <Row>
           <Form onSubmit={handleSubmit}>
@@ -60,12 +64,13 @@ export default function Crear(email) {
             <hr />
             <Row className="mb-3">
               <Form.Group as={Col} controlId="formGridDate">
-                <Form.Label className="label">Fecha de Inicio</Form.Label>
+                <Form.Label className="label">Fecha Creacion</Form.Label>
                 <Form.Control
                   type="date"
                   name="fecha_crea"
                   value={form.fecha_crea}
                   onChange={handleChange}
+                  required
                 />
               </Form.Group>
               <Form.Group as={Col} controlId="formGridPassword">
@@ -95,6 +100,7 @@ export default function Crear(email) {
                 <Form.Label>Ancho</Form.Label>
                 <Form.Control
                   type="number"
+                  min={0}
                   name="ancho"
                   value={form.ancho}
                   onChange={handleChange}
@@ -197,9 +203,16 @@ export default function Crear(email) {
               </Form.Group>
             </Row>
             <br />
-            <Button variant="primary" type="submit">
+            <div className="btons">
+              <Button variant="primary" type="submit">
               Crear Orden
             </Button>
+            {"          "}
+            <NavLink className="btn btn-primary" to={"/Listado"}>
+              Listado de Ordenes
+            </NavLink>
+            </div>
+            
           </Form>
         </Row>
       </Container>

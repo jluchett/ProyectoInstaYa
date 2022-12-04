@@ -1,9 +1,8 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import { Container } from "react-bootstrap";
 import Table from "react-bootstrap/Table";
 import "./app.css";
 import BarraNavegacion from "./Navbar";
-
 import ListaRow from './listaRow';
 
 const titulos = [
@@ -15,10 +14,27 @@ const titulos = [
   "Estado",
 ];
 
+export default function Listado({datIdCli}) {
+  const [newData, setNewData] = useState([])
 
-  
-export default function Listado({data}) {
-  
+  useEffect(() => {
+    obtenerEnvios();
+  }, []);
+
+  function obtenerEnvios() {
+    fetch("/api/envios")
+      .then((res) => res.json())
+      .then((data) => {
+        console.log("obtener desde listado");
+        console.log(data)
+        
+        setNewData(data)
+        console.log(datIdCli)
+        console.log(newData)
+      });
+  }
+  let datosNew = newData.filter( el => el.id_cliente == datIdCli)
+  console.log("datosNew")
   return (
     <>
       <BarraNavegacion menu1="Cerrar sesion" menu2="Registrar orden" />
@@ -38,12 +54,13 @@ export default function Listado({data}) {
               </tr>
             </thead>
             <tbody>
-              {data.length === 0 ? (
+              {datosNew.length === 0 ? (
                 <tr>
                   <td colSpan="3">No hay datos de envios</td>
                 </tr>
               ):(
-                data.map((el,index) => (
+                
+                datosNew.map((el,index) => (
                   <ListaRow 
                   key={el._id}
                   el={el}
