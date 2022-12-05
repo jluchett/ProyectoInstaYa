@@ -24,23 +24,19 @@ function App() {
     fetch("/api/envios")
       .then((res) => res.json())
       .then((data) => {
-        console.log("componente montado");
-        console.log(data);
         setDb(data);
       });
   }
   function editarEnvio(id){
     let dbEnvio = db.filter( el => el._id == id)
     setDataEnvio(dbEnvio)
-    console.log("data de editar envio",dbEnvio)
   }
 
   function obtenerUsuarios() {
     fetch("/api/usuarios")
       .then((res) => res.json())
       .then((data) => {
-        console.log("Datos usuarios obtenidos");
-        console.log(data);
+        console.log(data)
         setDbUser(data)
       });
   }
@@ -51,7 +47,6 @@ function App() {
     setIdCli(cliente._id)
     let arrayd = db.filter( el => el.id_cliente == cliente._id)
     setNewData(arrayd)
-    console.log(idCli)
   }
   return (
     <BrowserRouter>
@@ -61,7 +56,7 @@ function App() {
           <Route path="/" element={<Home/>} />
           <Route path="/Login" element={<Login datos={dbUser} data={db} obtUser={obtenerUsuario} obtEnv={obtenerEnvios} editEnv={editarEnvio}/>} />
           <Route path="/Registrarse" element={<Register obtUsers={obtenerUsuarios}/>} />
-          <Route path="/forgot" element={<Forgot />} />
+          <Route path="/forgot" element={<Forgot data={dbUser} obtUsers={obtenerUsuarios}/>} />
           <Route path="/Listado" element={<Listado datIdCli={idCli} obtEnv={obtenerEnvios} editEnv={editarEnvio}/>} />
           <Route path="/crear" element={<Crear idCliente={idCli} obtEnv={obtenerEnvios} obtUser={obtenerUsuario}/>} />
           <Route path="/Actualizar" element={ <Actualizar data={dataEnvio}/>} />

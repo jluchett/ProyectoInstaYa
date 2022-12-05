@@ -54,6 +54,7 @@ export default function Register({obtUsers}) {
               name="nombre"
               value={form.nombre}
               onChange={handleChange}
+              required
             />
           </Form.Group>
 
@@ -65,6 +66,7 @@ export default function Register({obtUsers}) {
               name="apellido"
               value={form.apellido}
               onChange={handleChange}
+              required
             />
           </Form.Group>
 
@@ -76,6 +78,7 @@ export default function Register({obtUsers}) {
               name="nombreusuario"
               value={form.nombreusuario}
               onChange={handleChange}
+              required
             />
           </Form.Group>
           <Form.Group className="mb-3">
@@ -86,6 +89,7 @@ export default function Register({obtUsers}) {
               name="email"
               value={form.email}
               onChange={handleChange}
+              required
             />
           </Form.Group>
           <Form.Group className="mb-3" controlId="formBasicPassword">
@@ -96,6 +100,7 @@ export default function Register({obtUsers}) {
               name="contrasena"
               value={form.contrasena}
               onChange={handleChange}
+              required
             />
           </Form.Group>
           <Form.Group className="mb-3" controlId="formBasicCheckbox">

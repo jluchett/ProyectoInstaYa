@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Container, Button, Col, Form, Row } from "react-bootstrap";
 import { NavLink } from "react-router-dom";
 import "./app.css";
@@ -18,10 +18,10 @@ const iniForm = {
   peso: "",
   dir_recogida: "",
   ciudad_recogida: "",
-  id_cliente: ""
+  id_cliente: "",
 };
 
-export default function Crear({idCliente, obtEnv, obtUser}) {
+export default function Crear({ idCliente, obtEnv, obtUser }) {
   const [form, setForm] = useState(iniForm);
 
   const handleChange = (e) => {
@@ -30,7 +30,6 @@ export default function Crear({idCliente, obtEnv, obtUser}) {
       [e.target.name]: e.target.value,
       id_cliente: idCliente,
     });
-    
   };
 
   const handleSubmit = (e) => {
@@ -43,18 +42,19 @@ export default function Crear({idCliente, obtEnv, obtUser}) {
         "Content-Type": "application/json",
       },
     })
-    .then((res) => res.json())
-    .then((data) => {
-      console.log(data)
-      alert("Envio registrado")
-      setForm(iniForm);
-      console.log("Se guardo desde el compnente crear")
-    })
-    .catch((error) => console.error(error))
-    obtEnv()
-    obtUser(idCliente)
-    console.log("final de handleSubmit")
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        alert("Envio registrado")
+        setForm(iniForm);
+        console.log("Se guardo desde el compnente crear");
+      })
+      .catch((error) => console.error(error));
+    obtEnv();
+    obtUser(idCliente);
+    console.log("final de handleSubmit");
   };
+
   return (
     <>
       <BarraNavegacion menu1="Cerrar sesion" />
@@ -81,6 +81,7 @@ export default function Crear({idCliente, obtEnv, obtUser}) {
                   name="hora_crea"
                   value={form.hora_crea}
                   onChange={handleChange}
+                  required
                 />
               </Form.Group>
             </Row>
@@ -94,6 +95,7 @@ export default function Crear({idCliente, obtEnv, obtUser}) {
                   value={form.largo}
                   onChange={handleChange}
                   placeholder="cm"
+                  required
                 />
               </Form.Group>
 
@@ -106,6 +108,7 @@ export default function Crear({idCliente, obtEnv, obtUser}) {
                   value={form.ancho}
                   onChange={handleChange}
                   placeholder="cm"
+                  required
                 />
               </Form.Group>
 
@@ -117,6 +120,7 @@ export default function Crear({idCliente, obtEnv, obtUser}) {
                   value={form.alto}
                   onChange={handleChange}
                   placeholder="cm"
+                  required
                 />
               </Form.Group>
 
@@ -128,6 +132,7 @@ export default function Crear({idCliente, obtEnv, obtUser}) {
                   value={form.peso}
                   onChange={handleChange}
                   placeholder="Kg"
+                  required
                 />
               </Form.Group>
             </Row>
@@ -141,6 +146,7 @@ export default function Crear({idCliente, obtEnv, obtUser}) {
                   value={form.dir_recogida}
                   onChange={handleChange}
                   placeholder="Coloque su dirección"
+                  required
                 />
               </Form.Group>
 
@@ -152,6 +158,7 @@ export default function Crear({idCliente, obtEnv, obtUser}) {
                   value={form.ciudad_recogida}
                   onChange={handleChange}
                   placeholder="Coloque su ciudad"
+                  required
                 />
               </Form.Group>
             </Row>
@@ -165,6 +172,7 @@ export default function Crear({idCliente, obtEnv, obtUser}) {
                   value={form.nom_destinatario}
                   onChange={handleChange}
                   placeholder="Coloque nombre"
+                  required
                 />
               </Form.Group>
 
@@ -176,6 +184,7 @@ export default function Crear({idCliente, obtEnv, obtUser}) {
                   value={form.ced_destinatario}
                   onChange={handleChange}
                   placeholder="Coloque cedula/Nit"
+                  required
                 />
               </Form.Group>
             </Row>
@@ -189,6 +198,7 @@ export default function Crear({idCliente, obtEnv, obtUser}) {
                   value={form.dir_entrega}
                   onChange={handleChange}
                   placeholder="Coloque direccion entrega"
+                  required
                 />
               </Form.Group>
 
@@ -200,20 +210,20 @@ export default function Crear({idCliente, obtEnv, obtUser}) {
                   value={form.ciudad_entrega}
                   onChange={handleChange}
                   placeholder="Coloque ciudad entrega"
+                  required
                 />
               </Form.Group>
             </Row>
             <br />
             <div className="btons">
               <Button variant="primary" type="submit">
-              Crear Orden
-            </Button>
-            {"          "}
-            <NavLink className="btn btn-primary" to={"/Listado"}>
-              Listado de Ordenes
-            </NavLink>
+                Crear Orden
+              </Button>
+              {"          "}
+              <NavLink className="btn btn-primary" to={"/Listado"}>
+                Listado de Ordenes
+              </NavLink>
             </div>
-            
           </Form>
         </Row>
       </Container>

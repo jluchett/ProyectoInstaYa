@@ -59,7 +59,6 @@ export default function Actualizar({ data }) {
       .then((data) => {
         console.log(data);
         alert("Envio actualizado");
-        
       })
       .catch((error) => console.error(error));
       

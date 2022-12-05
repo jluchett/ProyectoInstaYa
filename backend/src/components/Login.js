@@ -67,6 +67,7 @@ export default function Login({ datos, data, obtUser, obtEnv, editEnv }) {
                   name="username"
                   value={user.username}
                   onChange={handleChange}
+                  required
                 />
               </Form.Group>
               <Form.Group className="mb-3" controlId="formBasicPassword">
@@ -77,6 +78,7 @@ export default function Login({ datos, data, obtUser, obtEnv, editEnv }) {
                   name="password"
                   value={user.password}
                   onChange={handleChange}
+                  required
                 />
                 <label id="estadoCancelado"></label>
               </Form.Group>
