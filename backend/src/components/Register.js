@@ -11,7 +11,7 @@ const initialForm = {
   email: "",
   contrasena: "",
 };
-export default function Register() {
+export default function Register({obtUsers}) {
   const [form, setForm] = useState(initialForm);
 
   const handleChange = (e) => {
@@ -31,9 +31,13 @@ export default function Register() {
       },
     })
       .then((res) => res.json())
-      .then((data) => console.log(data))
+      .then((data) => {
+        console.log(data)
+        alert("Usuario creado")
+        setForm(initialForm)
+      })
       .catch((error) => console.error(error));
-    
+    obtUsers()
   };
 
   return (

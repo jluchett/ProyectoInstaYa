@@ -6,12 +6,14 @@ import Forgot from "../components/forgot";
 import Listado from "../components/Listado";
 import Crear from "../components/Crear";
 import Home from "../components/home";
+import Actualizar from "../components/Actualizar";
 
 function App() {
   const [dbUser, setDbUser] = useState([])
   const [db, setDb] = useState([]);
   const [idCli, setIdCli] = useState("")
   const [newData, setNewData] = useState([]);
+  const [dataEnvio, setDataEnvio]= useState([]);
 
   useEffect(() => {
     obtenerEnvios();
@@ -27,6 +29,11 @@ function App() {
         setDb(data);
       });
   }
+  function editarEnvio(id){
+    let dbEnvio = db.filter( el => el._id == id)
+    setDataEnvio(dbEnvio)
+    console.log("data de editar envio",dbEnvio)
+  }
 
   function obtenerUsuarios() {
     fetch("/api/usuarios")
@@ -37,6 +44,7 @@ function App() {
         setDbUser(data)
       });
   }
+
   
   function obtenerUsuario(id) {
     let cliente = dbUser.find(el => el._id == id)
@@ -51,11 +59,12 @@ function App() {
         <Routes>
           {/* <Route path="/" element={<Login datos={dbUser} data={db} />} /> */}
           <Route path="/" element={<Home/>} />
-          <Route path="/Login" element={<Login datos={dbUser} data={db} obtUser={obtenerUsuario}/>} />
-          <Route path="/Registrarse" element={<Register />} />
+          <Route path="/Login" element={<Login datos={dbUser} data={db} obtUser={obtenerUsuario} obtEnv={obtenerEnvios} editEnv={editarEnvio}/>} />
+          <Route path="/Registrarse" element={<Register obtUsers={obtenerUsuarios}/>} />
           <Route path="/forgot" element={<Forgot />} />
-          <Route path="/Listado" element={<Listado datIdCli={idCli} />} />
+          <Route path="/Listado" element={<Listado datIdCli={idCli} obtEnv={obtenerEnvios} editEnv={editarEnvio}/>} />
           <Route path="/crear" element={<Crear idCliente={idCli} obtEnv={obtenerEnvios} obtUser={obtenerUsuario}/>} />
+          <Route path="/Actualizar" element={ <Actualizar data={dataEnvio}/>} />
         </Routes>
       </div>
     </BrowserRouter>

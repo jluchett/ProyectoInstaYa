@@ -46,8 +46,9 @@ export default function Crear({idCliente, obtEnv, obtUser}) {
     .then((res) => res.json())
     .then((data) => {
       console.log(data)
+      alert("Envio registrado")
       setForm(iniForm);
-      console.log("de guardo desde el compnente crear")
+      console.log("Se guardo desde el compnente crear")
     })
     .catch((error) => console.error(error))
     obtEnv()
@@ -56,7 +57,7 @@ export default function Crear({idCliente, obtEnv, obtUser}) {
   };
   return (
     <>
-      <BarraNavegacion menu1="Listado" />
+      <BarraNavegacion menu1="Cerrar sesion" />
       <Container className="crear">
         <Row>
           <Form onSubmit={handleSubmit}>

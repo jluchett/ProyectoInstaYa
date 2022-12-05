@@ -1,9 +1,9 @@
-import React, {useState, useEffect} from 'react'
+import React, { useState, useEffect } from "react";
 import { Container } from "react-bootstrap";
 import Table from "react-bootstrap/Table";
 import "./app.css";
 import BarraNavegacion from "./Navbar";
-import ListaRow from './listaRow';
+import ListaRow from "./listaRow";
 
 const titulos = [
   "Item",
@@ -14,8 +14,8 @@ const titulos = [
   "Estado",
 ];
 
-export default function Listado({datIdCli}) {
-  const [newData, setNewData] = useState([])
+export default function Listado({ datIdCli, obtEnv, editEnv }) {
+  const [newData, setNewData] = useState([]);
 
   useEffect(() => {
     obtenerEnvios();
@@ -26,22 +26,24 @@ export default function Listado({datIdCli}) {
       .then((res) => res.json())
       .then((data) => {
         console.log("obtener desde listado");
-        console.log(data)
-        
-        setNewData(data)
-        console.log(datIdCli)
-        console.log(newData)
-      });
+        console.log(data);
+
+        setNewData(data);
+        console.log(datIdCli);
+        console.log(newData);
+      })
+      .catch((error) => console.error(error));
+    obtEnv();
   }
-  let datosNew = newData.filter( el => el.id_cliente == datIdCli)
-  console.log("datosNew")
+  let datosNew = newData.filter((el) => el.id_cliente == datIdCli);
+  console.log("datosNew");
   return (
     <>
       <BarraNavegacion menu1="Cerrar sesion" menu2="Registrar orden" />
       <Container className="tabla">
         <div>
           <h2 id="titles">Listado de Ordenes</h2>
-          <Table >
+          <Table>
             <thead>
               <tr>
                 {titulos.map((titulo, index) => {
@@ -58,17 +60,16 @@ export default function Listado({datIdCli}) {
                 <tr>
                   <td colSpan="3">No hay datos de envios</td>
                 </tr>
-              ):(
-                
-                datosNew.map((el,index) => (
-                  <ListaRow 
-                  key={el._id}
-                  el={el}
-                  indice={index}
+              ) : (
+                datosNew.map((el, index) => (
+                  <ListaRow
+                    key={el._id}
+                    el={el}
+                    indice={index}
+                    editarEnvio={editEnv}
                   />
                 ))
               )}
-              
             </tbody>
           </Table>
         </div>
